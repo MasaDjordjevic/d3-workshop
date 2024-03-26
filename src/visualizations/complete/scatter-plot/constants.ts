@@ -11,7 +11,7 @@ export const CHART_DEFAULTS = {
   itemCount: INITIAL_DATA.length,
   maxValue: DATA_DEFAULTS.max,
   ...COMMON_CHART_DEFAULTS,
-  transitionDuration: 100,
+  transitionDuration: 1000,
 } as const satisfies Partial<ScatterPlotChartProps<StoryDatum>>;
 
 export const CHART_ARG_TYPES = {

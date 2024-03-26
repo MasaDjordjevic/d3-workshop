@@ -14,6 +14,7 @@ export interface Chart<Datum> {
   data: Array<Datum>;
   labelAccessor: Accessor<Datum, string>;
   valueAccessor: Accessor<Datum, number>;
+  altValueAccessor: Accessor<Datum, number>;
   maxValue: number;
   itemCount: number;
   colorScheme?: string;

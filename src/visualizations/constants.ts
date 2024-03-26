@@ -27,6 +27,7 @@ export const COMMON_CHART_DEFAULTS = {
   data: INITIAL_DATA,
   labelAccessor: (d) => d.label,
   valueAccessor: (d) => d.value,
+  altValueAccessor: (d) => d.goal,
 } as const satisfies Partial<Chart<StoryDatum>>;
 
 export const COMMON_ARG_TYPES = {
@@ -59,5 +60,6 @@ export const COMMON_ARG_TYPES = {
   colors: { table: { disable: true } },
   labelAccessor: { table: { disable: true } },
   valueAccessor: { table: { disable: true } },
+  altValueAccessor: { table: { disable: true } },
   data: { table: { disable: true } },
 };

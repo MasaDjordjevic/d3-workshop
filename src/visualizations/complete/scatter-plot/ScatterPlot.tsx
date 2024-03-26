@@ -20,6 +20,9 @@ export function ScatterPlotChart<Datum>({
   transitionDuration = CHART_DEFAULTS.transitionDuration,
   colors = [],
   data = [],
+  valueAccessor,
+  altValueAccessor,
+  labelAccessor,
 }: ScatterPlotChartProps<Datum>) {
   const ref = useRef<SVGSVGElement>(null);
   const { width: rootWidth, height: rootHeight } = useDimensions(ref);
@@ -29,9 +32,7 @@ export function ScatterPlotChart<Datum>({
   // Scales
   const yScale = scaleLinear().domain([0, maxValue]).range([boundedHeight, 0]);
   const xScale = scaleLinear().domain([0, maxValue]).range([0, boundedWidth]);
-  const colorScale = scaleOrdinal()
-    .domain(data.map((d) => d.label))
-    .range(colors);
+  const colorScale = scaleOrdinal().domain(data.map(labelAccessor)).range(colors);
   const horizontalAxisTransform = `translate(0, ${boundedHeight})`;
 
   const springs = useSprings(
@@ -39,9 +40,11 @@ export function ScatterPlotChart<Datum>({
     data.map(() => {
       return {
         from: {
+          transform: "scale(0)",
           fillOpacity: 0,
         },
         to: {
+          transform: "scale(1)",
           fillOpacity: 0.5,
         },
         config: {
@@ -92,16 +95,16 @@ export function ScatterPlotChart<Datum>({
             <g key={i}>
               <animated.circle
                 r={13}
-                cx={xScale(d.value)}
-                cy={yScale(d.goal)}
-                stroke={colorScale(d.label)}
-                fill={colorScale(d.label)}
+                cx={xScale(valueAccessor(d))}
+                cy={yScale(altValueAccessor(d))}
+                stroke={colorScale(labelAccessor(d))}
+                fill={colorScale(labelAccessor(d))}
                 opacity={1}
                 strokeWidth={1}
                 {...springs[i]}
               />
               <title>
-                {d.label} ({d.value})
+                {labelAccessor(d)} ({valueAccessor(d)})
               </title>
             </g>
           );
