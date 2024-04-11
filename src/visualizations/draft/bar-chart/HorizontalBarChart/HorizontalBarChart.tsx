@@ -3,6 +3,7 @@ import "../BarChart.css";
 import { CHART_DEFAULTS } from "../constants";
 import { useDimensions } from "../../../utils/use-dimensions";
 import { Chart } from "../../../types";
+import { scaleBand } from "d3-scale";
 
 export interface BarChartProps<Datum> extends Chart<Datum> {
   /**
